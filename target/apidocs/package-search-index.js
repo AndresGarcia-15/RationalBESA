@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"rational"},{"l":"rational.data"},{"l":"rational.guards"},{"l":"rational.mapping"},{"l":"rational.services"},{"l":"rational.tasks"}];updateSearchResults();

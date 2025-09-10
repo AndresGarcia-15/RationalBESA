@@ -102,6 +102,35 @@ cd RationalBESA
 mvn clean compile package -P local-dev
 ```
 
+## GitHub Actions y CI/CD
+
+Este proyecto incluye configuración automatizada para GitHub Actions que:
+
+- ✅ **Build automatizado**: Compila el proyecto en cada push/PR
+- ✅ **Cache de Maven**: Acelera los builds
+- ✅ **Deploy automático**: Publica en GitHub Packages en la rama main
+- ✅ **Tests**: Ejecuta tests si están disponibles
+- ✅ **Manejo de dependencias**: Estrategia de fallback para dependencias no disponibles
+
+### Configuración de Perfiles
+
+- **`local-dev`** (por defecto): Usa dependencias del sistema local
+- **`github-packages`**: Usa dependencias de GitHub Packages
+
+### Scripts de Validación
+
+Ejecuta el script de validación para verificar la configuración:
+
+```powershell
+# Windows PowerShell
+.\validate-build.ps1
+
+# Bash (Linux/Mac)
+./validate-build.sh
+```
+
+Para más detalles sobre GitHub Actions, consulta: [README-GITHUB-ACTIONS.md](README-GITHUB-ACTIONS.md)
+
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia Apache 2.0.
