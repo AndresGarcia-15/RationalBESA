@@ -33,38 +33,109 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Verify Maven configuration
-      run: mvn help:effective-settings
+      run: mvn help:effective-settings -P github-packages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Build with Maven (try github-packages, fallback to local)
+    - name: Verify build output
       run: |
-        echo "Attempting build with github-packages profile..."
-        if mvn clean compile package -P github-packages -B; then
-          echo "Build successful with github-packages profile"
+        echo "📁 Project structure:"
+        ls -la
+        echo ""
+        echo "📁 Target directory (if exists):"
+        if [ -d "target" ]; then
+          ls -la target/
         else
-          echo "github-packages profile failed, this is expected if dependencies aren't published yet"
-          echo "This will work once KernelBESA is published to GitHub Packages"
-          exit 0
+          echo "Target directory not found yet"
+        fi
+    
+    - name: Check KernelBESA availability
+      id: check-kernel
+      run: |
+        echo "Checking if KernelBESA is available in GitHub Packages..."
+        # Try to resolve dependencies with github-packages profile
+        if mvn dependency:resolve -P github-packages -B -q 2>/dev/null; then
+          echo "kernel-available=true" >> $GITHUB_OUTPUT
+          echo "✅ KernelBESA found in GitHub Packages"
+        else
+          echo "kernel-available=false" >> $GITHUB_OUTPUT
+          echo "⚠️ KernelBESA not found in GitHub Packages"
         fi
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      continue-on-error: true
     
-    - name: Run tests (if any)
-      run: mvn test -P github-packages -B
+    - name: Clone and Build KernelBESA (if needed)
+      if: steps.check-kernel.outputs.kernel-available == 'false'
+      run: |
+        echo "📦 Cloning KernelBESA for local build..."
+        cd ..
+        if [ ! -d "KernelBESA" ]; then
+          git clone https://github.com/ISCOUTB/KernelBESA.git
+        fi
+        cd KernelBESA
+        echo "🔨 Building KernelBESA..."
+        mvn clean install -B -q
+        echo "✅ KernelBESA built and installed locally"
+        ls -la target/
+    
+    - name: Build with GitHub Packages
+      if: steps.check-kernel.outputs.kernel-available == 'true'
+      run: |
+        echo "🔨 Building with github-packages profile..."
+        mvn clean compile package -P github-packages -B
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Build with Local Dependencies
+      if: steps.check-kernel.outputs.kernel-available == 'false'
+      run: |
+        echo "🔨 Building with local-dev profile..."
+        mvn clean compile package -P local-dev -B
+    
+    - name: Run tests
+      run: |
+        echo "🧪 Running tests..."
+        if [ "${{ steps.check-kernel.outputs.kernel-available }}" == "true" ]; then
+          mvn test -P github-packages -B
+        else
+          mvn test -P local-dev -B
+        fi
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Deploy to GitHub Packages
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    - name: Verify build artifacts
       run: |
-        echo "Attempting deploy to GitHub Packages..."
-        if mvn deploy -P github-packages -DskipTests -B; then
-          echo "Deploy successful"
+        echo "📦 Checking generated artifacts:"
+        if [ -d "target" ]; then
+          echo "Target directory contents:"
+          ls -la target/
+          echo ""
+          if ls target/*.jar 1> /dev/null 2>&1; then
+            echo "✅ JAR files found:"
+            ls -la target/*.jar
+          else
+            echo "❌ No JAR files found in target directory"
+            exit 1
+          fi
         else
-          echo "Deploy failed - this is expected until KernelBESA is available in GitHub Packages"
-          exit 0
+          echo "❌ Target directory not found"
+          exit 1
         fi
+    
+    - name: Deploy to GitHub Packages
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.check-kernel.outputs.kernel-available == 'true'
+      run: |
+        echo "🚀 Deploying to GitHub Packages..."
+        mvn deploy -P github-packages -DskipTests -B
+        echo "✅ Deploy successful"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Skip Deploy (Dependencies Not Available)
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.check-kernel.outputs.kernel-available == 'false'
+      run: |
+        echo "⚠️ Skipping deploy - using local dependencies"
+        echo "📝 To enable deploy: Wait for KernelBESA to be published to GitHub Packages"
+        echo "� This build used local KernelBESA dependency and completed successfully"
