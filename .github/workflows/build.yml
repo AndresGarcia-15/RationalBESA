@@ -37,23 +37,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Verify build output
-      run: |
-        echo "📁 Project structure:"
-        ls -la
-        echo ""
-        echo "📁 Target directory (if exists):"
-        if [ -d "target" ]; then
-          ls -la target/
-        else
-          echo "Target directory not found yet"
-        fi
-    
     - name: Check KernelBESA availability
       id: check-kernel
       run: |
         echo "Checking if KernelBESA is available in GitHub Packages..."
-        # Try to resolve dependencies with github-packages profile
         if mvn dependency:resolve -P github-packages -B -q 2>/dev/null; then
           echo "kernel-available=true" >> $GITHUB_OUTPUT
           echo "✅ KernelBESA found in GitHub Packages"
@@ -138,4 +125,4 @@ jobs:
       run: |
         echo "⚠️ Skipping deploy - using local dependencies"
         echo "📝 To enable deploy: Wait for KernelBESA to be published to GitHub Packages"
-        echo "� This build used local KernelBESA dependency and completed successfully"
+        echo "💡 This build used local KernelBESA dependency and completed successfully"
