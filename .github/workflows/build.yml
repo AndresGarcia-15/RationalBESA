@@ -112,17 +112,35 @@ jobs:
         fi
     
     - name: Deploy to GitHub Packages
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.check-kernel.outputs.kernel-available == 'true'
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
         echo "🚀 Deploying to GitHub Packages..."
-        mvn deploy -P github-packages -DskipTests -B
+        echo "📋 Deployment conditions:"
+        echo "  - Branch: ${{ github.ref }}"
+        echo "  - Event: ${{ github.event_name }}"
+        echo "  - KernelBESA available: ${{ steps.check-kernel.outputs.kernel-available }}"
+        
+        if [ "${{ steps.check-kernel.outputs.kernel-available }}" == "true" ]; then
+          echo "✅ Using GitHub Packages profile for deploy..."
+          mvn deploy -P github-packages -DskipTests -B
+        else
+          echo "⚠️ Using local-dev profile for deploy..."
+          mvn deploy -P local-dev -DskipTests -B
+        fi
         echo "✅ Deploy successful"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
-    - name: Skip Deploy (Dependencies Not Available)
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push' && steps.check-kernel.outputs.kernel-available == 'false'
+    - name: Show Deploy Information
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        echo "⚠️ Skipping deploy - using local dependencies"
-        echo "📝 To enable deploy: Wait for KernelBESA to be published to GitHub Packages"
-        echo "💡 This build used local KernelBESA dependency and completed successfully"
+        echo "ℹ️ Deploy completed successfully"
+        echo "📦 RationalBESA 3.5 should now be available at:"
+        echo "   https://maven.pkg.github.com/ISCOUTB/RationalBESA"
+        echo ""
+        echo "📝 To use as dependency:"
+        echo "   <dependency>"
+        echo "     <groupId>io.github.iscoutb</groupId>"
+        echo "     <artifactId>rational-besa</artifactId>"
+        echo "     <version>3.5</version>"
+        echo "   </dependency>"
