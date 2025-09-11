@@ -2,14 +2,14 @@
 @options
 @packages
 -classpath
-'C:/Users/jairo/.m2/repository/io/github/iscoutb/kernel-besa/3.5.1/kernel-besa-3.5.1.jar'
+'C:/Users/jairo/Proyectos/simulador/RationalBESA/../KernelBESA/target/kernel-besa-3.6.0.jar'
 -encoding
 'UTF-8'
 -protected
 -source
 '21'
 -sourcepath
-'C:/Users/jairo/Proyectos/simulador/RationalBESA/src;C:/Users/jairo/Proyectos/simulador/RationalBESA/target/generated-sources/annotations'
+'C:/Users/jairo/Proyectos/simulador/RationalBESA/src/main/java;C:/Users/jairo/Proyectos/simulador/RationalBESA/target/generated-sources/annotations'
 -Xdoclint:none
 -author
 -bottom
@@ -21,38 +21,38 @@
 -docencoding
 'UTF-8'
 -doctitle
-'RationalBESA 3.5 API'
+'RationalBESA 3.6.0 API'
 -use
 -version
 -windowtitle
-'RationalBESA 3.5 API'
+'RationalBESA 3.6.0 API'
 rational.data
 rational.guards
 rational.mapping
 rational
 rational.services
 rational.tasks
-C:\Users\jairo\.m2\repository\io\github\iscoutb\kernel-besa\3.5.1\kernel-besa-3.5.1.jar = 1757475731940
-C:\Users\jairo\Proyectos\simulador\RationalBESA\src = 1757473957498
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\generated-sources\annotations = 1757476577916
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\allclasses-index.html = 1757476581585
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\allpackages-index.html = 1757476581587
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\copy.svg = 1757476581620
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\element-list = 1757476581437
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\help-doc.html = 1757476581615
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\index-all.html = 1757476581608
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\index.html = 1757476581570
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\link.svg = 1757476581621
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\member-search-index.js = 1757476581592
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\module-search-index.js = 1757476581589
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\overview-summary.html = 1757476581612
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\overview-tree.html = 1757476581567
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\package-search-index.js = 1757476581589
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\script.js = 1757476581619
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\search-page.js = 1757476581624
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\search.html = 1757476581610
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\search.js = 1757476581623
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\serialized-form.html = 1757476581493
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\stylesheet.css = 1757476581617
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\tag-search-index.js = 1757476581593
-C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\type-search-index.js = 1757476581590
+C:\Users\jairo\Proyectos\simulador\RationalBESA\..\KernelBESA\target\kernel-besa-3.6.0.jar = 1757555043652
+C:\Users\jairo\Proyectos\simulador\RationalBESA\src\main\java = 1757555791159
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\generated-sources\annotations = 1757555877773
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\allclasses-index.html = 1757555881522
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\allpackages-index.html = 1757555881525
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\copy.svg = 1757555881562
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\element-list = 1757555881353
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\help-doc.html = 1757555881556
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\index-all.html = 1757555881546
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\index.html = 1757555881508
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\link.svg = 1757555881563
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\member-search-index.js = 1757555881531
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\module-search-index.js = 1757555881527
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\overview-summary.html = 1757555881551
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\overview-tree.html = 1757555881503
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\package-search-index.js = 1757555881528
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\script.js = 1757555881560
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\search-page.js = 1757555881569
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\search.html = 1757555881549
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\search.js = 1757555881566
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\serialized-form.html = 1757555881409
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\stylesheet.css = 1757555881558
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\tag-search-index.js = 1757555881532
+C:\Users\jairo\Proyectos\simulador\RationalBESA\target\apidocs\type-search-index.js = 1757555881529
