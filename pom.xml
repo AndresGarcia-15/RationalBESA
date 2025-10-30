@@ -42,80 +42,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <profiles>
-        <!-- Profile para desarrollo local usando archivos del sistema -->
-        <profile>
-            <id>local-dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <dependencies>
-                <dependency>
-                    <groupId>io.github.iscoutb</groupId>
-                    <artifactId>kernel-besa</artifactId>
-                    <version>3.5.1</version>
-                    <scope>system</scope>
-                    <systemPath>${project.basedir}/../KernelBESA/target/kernel-besa-3.6.0.jar</systemPath>
-                </dependency>
-            </dependencies>
-        </profile>
+    <repositories>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/ISCOUTB/*</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-        <!-- Profile para GitHub Packages -->
-        <profile>
-            <id>github-packages</id>
-            <repositories>
-                <repository>
-                    <id>github-kernelbesa</id>
-                    <url>https://maven.pkg.github.com/ISCOUTB/KernelBESA</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </repository>
-                <repository>
-                    <id>github-all</id>
-                    <url>https://maven.pkg.github.com/ISCOUTB/*</url>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </repository>
-                <repository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </repository>
-            </repositories>
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>central</id>
-                    <url>https://repo1.maven.org/maven2</url>
-                    <snapshots>
-                        <enabled>false</enabled>
-                    </snapshots>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                </pluginRepository>
-            </pluginRepositories>
-            <dependencies>
-                <dependency>
-                    <groupId>io.github.iscoutb</groupId>
-                    <artifactId>kernel-besa</artifactId>
-                    <version>3.5.1</version>
-                </dependency>
-            </dependencies>
-        </profile>
-    </profiles>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.iscoutb</groupId>
+            <artifactId>kernel-besa</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
